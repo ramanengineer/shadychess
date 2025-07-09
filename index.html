@@ -296,6 +296,7 @@
 
       <div class="text-center mt-8">
         <button class="nes-btn is-primary" onclick="resetGame()"><i class="fas fa-redo"></i> New Game</button>
+        <button class="nes-btn is-primary" onclick="resignGame()"><i class="fas fa-flag"></i> Resign Game</button>
       </div>
     </div>
 
@@ -493,6 +494,15 @@
         document.body.appendChild(gameOverDiv);
       } catch (error) {
         console.error('Error showing game over:', error);
+      }
+    }
+
+    function resignGame() {
+      try {
+        const winner = currentTurn === 'shadypeterlive' ? 'AI' : 'ShadyPeterLive';
+        showGameOver(winner);
+      } catch (error) {
+        console.error('Error during resignation:', error);
       }
     }
 
