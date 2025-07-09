@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Shady Chess - A unique chess variant where pieces can move anywhere, captures affect scores, and the game ends when one side loses all pieces.">
+  <meta name="keywords" content="chess, game, ShadyPeter, OGVK, unique chess variant">
+  <meta name="author" content="OGVK Company">
+  <meta property="og:title" content="Shady Chess - Unique Chess Variant">
+  <meta property="og:description" content="Play Shady Chess, a creative chess variant where any piece can move anywhere, captures affect scores, and the game ends when one side loses all pieces.">
+  <meta property="og:image" content="https://i.postimg.cc/Jn4BVvRf/OGVK-GGQP-1.png">
+  <meta property="og:url" content="https://shadychess.ogvk.company">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Shady Chess</title>
+  <link rel="icon" href="https://i.postimg.cc/Jn4BVvRf/OGVK-GGQP-1.png" type="image/png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-bg: #0a1123;
+      --secondary-bg: #1a263a;
+      --accent: #4f9bff;
+      --text: #f5f7fa;
+      --btn-light-text: #ffffff;
+      --home-tab: #4f9bff;
+      --home-bg: rgba(79, 155, 255, 0.05);
+      --home-btn: #4f9bff;
+      --clr-1: #4f9bff;
+      --clr-2: #2dd4bf;
+      --clr-3: #ffab40;
+      --clr-4: #f472b6;
+      --blur: 1.5rem;
+      --fs: clamp(2.8rem, 7vw, 5.5rem);
+      --ls: clamp(-2px, -0.3vw, -4px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(145deg, var(--primary-bg), #0c162d);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 20px 10px;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .nes-container {
+      background: rgba(26, 38, 58, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+      margin-bottom: 20px;
+    }
+
+    .content {
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      font-size: var(--fs);
+      letter-spacing: var(--ls);
+      position: relative;
+      margin: 0;
+      color: #fff;
+      padding: 20px 0;
+      z-index: 3;
+      text-shadow: 0 2px 10px rgba(79, 155, 255, 0.3);
+    }
+
+    .main-logo {
+      display: block;
+      margin: 0 auto;
+      max-width: 180px;
+      height: auto;
+      margin-bottom: 20px;
+      animation: fadeIn 1.2s ease-out;
+    }
+
+    h2 {
+      color: var(--accent);
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 20px;
+      animation: fadeIn 0.9s ease-out;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      animation: fadeIn 1.1s ease-out;
+    }
+
+    .nes-btn {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: none;
+      border-radius: 12px;
+      color: var(--btn-light-text);
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+      margin: 6px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .nes-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+      filter: brightness(1.2);
+    }
+
+    .nes-btn:active {
+      animation: buttonPress 0.2s ease;
+    }
+
+    .nes-btn.is-primary { background: var(--home-btn); }
+
+    @keyframes buttonPress {
+      0% { transform: scale(1); box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3); }
+      50% { transform: scale(0.97); box-shadow: 0 3px 12px rgba(255, 255, 255, 0.2); }
+      100% { transform: scale(1); box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3); }
+    }
+
+    .chess-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .chessboard {
+      width: 400px;
+      height: 400px;
+      display: grid;
+      grid-template: repeat(8, 1fr) / repeat(8, 1fr);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      background: rgba(26, 38, 58, 0.65);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+      visibility: visible;
+      border-collapse: collapse;
+    }
+
+    .square {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      border: none;
+    }
+
+    .square.light { background: #f5f7fa; }
+    .square.dark { background: #4f9bff; }
+    .square.selected { background: rgba(255, 171, 64, 0.5); }
+    .square.valid-move { 
+      background: rgba(45, 212, 191, 0.3);
+      border: none;
+      box-shadow: inset 0 0 5px rgba(45, 212, 191, 0.5);
+    }
+
+    .piece {
+      width: 40px;
+      height: 40px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: absolute;
+      z-index: 2;
+    }
+
+    .score-board {
+      background: rgba(26, 38, 58, 0.65);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      width: 300px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .score-board h3 {
+      color: var(--accent);
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+    }
+
+    .score-board p {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    .game-over {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .game-over-content {
+      background: rgba(26, 38, 58, 0.9);
+      border-radius: 14px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (min-width: 768px) {
+      body { padding: 30px 15px; }
+      .nes-container { padding: 30px; border-radius: 18px; }
+      .chessboard { width: 480px; height: 480px; }
+      .square { width: 60px; height: 60px; }
+      .piece { width: 50px; height: 50px; }
+      .score-board { width: 350px; }
+    }
+
+    @media (max-width: 480px) {
+      .nes-container { padding: 15px; }
+      .main-logo { max-width: 150px; }
+      .title { font-size: clamp(2rem, 5vw, 3.2rem); }
+      .chessboard { width: 320px; height: 320px; }
+      .square { width: 40px; height: 40px; }
+      .piece { width: 32px; height: 32px; }
+      .score-board { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="content">
+      <img src="https://i.postimg.cc/Jn4BVvRf/OGVK-GGQP-1.png" alt="OGVK Logo" class="main-logo">
+      <h1 class="title">Shady Chess</h1>
+    </div>
+
+    <div class="nes-container">
+      <h2>Play Shady Chess</h2>
+      <p>A unique chess variant by ShadyPeter: Move any piece anywhere on the board. Capture an opponent's piece to gain +1 point and deduct -1 from their score. The game ends when one side loses all pieces, declaring ShadyPeter the winner!</p>
+      
+      <div class="chess-container">
+        <div class="chessboard" id="chessboard"></div>
+        <div class="score-board">
+          <h3>Score</h3>
+          <p>White: <span id="white-score">0</span></p>
+          <p>Black: <span id="black-score">0</span></p>
+          <p>Turn: <span id="turn">White</span></p>
+        </div>
+      </div>
+
+      <div class="text-center mt-8">
+        <button class="nes-btn is-primary" onclick="resetGame()"><i class="fas fa-redo"></i> New Game</button>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2025 OGVK Company | All rights reserved</p>
+      <div class="footer-links">
+        <a href="https://ogvk.company" target="_blank">Back to OGVK</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const board = document.getElementById('chessboard');
+    let selectedPiece = null;
+    let currentTurn = 'white';
+    let scores = { white: 0, black: 0 };
+    let pieces = { white: 16, black: 16 };
+
+    const initialBoard = [
+      ['br', 'bn', 'bb', 'bq', 'bk', 'bb', 'bn', 'br'],
+      ['bp', 'bp', 'bp', 'bp', 'bp', 'bp', 'bp', 'bp'],
+      ['', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '', ''],
+      ['wp', 'wp', 'wp', 'wp', 'wp', 'wp', 'wp', 'wp'],
+      ['wr', 'wn', 'wb', 'wq', 'wk', 'wb', 'wn', 'wr']
+    ];
+
+    let boardState = JSON.parse(JSON.stringify(initialBoard));
+
+    const pieceImages = {
+      'wp': 'https://lichess1.org/assets/piece/cburnett/wP.svg',
+      'wr': 'https://lichess1.org/assets/piece/cburnett/wR.svg',
+      'wn': 'https://lichess1.org/assets/piece/cburnett/wN.svg',
+      'wb': 'https://lichess1.org/assets/piece/cburnett/wB.svg',
+      'wq': 'https://lichess1.org/assets/piece/cburnett/wQ.svg',
+      'wk': 'https://lichess1.org/assets/piece/cburnett/wK.svg',
+      'bp': 'https://lichess1.org/assets/piece/cburnett/bP.svg',
+      'br': 'https://lichess1.org/assets/piece/cburnett/bR.svg',
+      'bn': 'https://lichess1.org/assets/piece/cburnett/bN.svg',
+      'bb': 'https://lichess1.org/assets/piece/cburnett/bB.svg',
+      'bq': 'https://lichess1.org/assets/piece/cburnett/bQ.svg',
+      'bk': 'https://lichess1.org/assets/piece/cburnett/bK.svg'
+    };
+
+    function initializeBoard() {
+      try {
+        board.innerHTML = '';
+        board.style.visibility = 'visible';
+        
+        for (let row = 0; row < 8; row++) {
+          for (let col = 0; col < 8; col++) {
+            const square = document.createElement('div');
+            square.className = `square ${(row + col) % 2 === 0 ? 'light' : 'dark'}`;
+            square.dataset.row = row;
+            square.dataset.col = col;
+            square.addEventListener('click', handleSquareClick);
+            
+            const piece = boardState[row][col];
+            if (piece && pieceImages[piece]) {
+              const pieceElement = document.createElement('div');
+              pieceElement.className = 'piece';
+              pieceElement.style.backgroundImage = `url(${pieceImages[piece]})`;
+              pieceElement.dataset.piece = piece;
+              
+              // Fallback for image loading errors
+              const img = new Image();
+              img.src = pieceImages[piece];
+              img.onerror = () => {
+                console.error(`Failed to load piece image: ${pieceImages[piece]}`);
+                pieceElement.style.background = 'red';
+                pieceElement.style.width = '40px';
+                pieceElement.style.height = '40px';
+              };
+              
+              square.appendChild(pieceElement);
+            }
+            
+            board.appendChild(square);
+          }
+        }
+        updateScoreBoard();
+      } catch (error) {
+        console.error('Error initializing board:', error);
+        board.innerHTML = '<p style="color: red; text-align: center;">Error loading chessboard. Please refresh the page.</p>';
+      }
+    }
+
+    function handleSquareClick(e) {
+      try {
+        const square = e.currentTarget;
+        const row = parseInt(square.dataset.row);
+        const col = parseInt(square.dataset.col);
+        const piece = boardState[row][col];
+
+        if (selectedPiece) {
+          if (row === selectedPiece.row && col === selectedPiece.col) {
+            clearSelection();
+            return;
+          }
+
+          const targetPiece = boardState[row][col];
+          if (targetPiece && targetPiece[0] === boardState[selectedPiece.row][selectedPiece.col][0]) {
+            clearSelection();
+            selectedPiece = { row, col };
+            square.classList.add('selected');
+            highlightValidMoves();
+          } else {
+            movePiece(row, col);
+          }
+        } else if (piece && piece[0] === currentTurn[0]) {
+          selectedPiece = { row, col };
+          square.classList.add('selected');
+          highlightValidMoves();
+        }
+      } catch (error) {
+        console.error('Error handling square click:', error);
+      }
+    }
+
+    function highlightValidMoves() {
+      document.querySelectorAll('.square').forEach(square => {
+        square.classList.add('valid-move');
+      });
+    }
+
+    function clearSelection() {
+      selectedPiece = null;
+      document.querySelectorAll('.square').forEach(square => {
+        square.classList.remove('selected', 'valid-move');
+      });
+    }
+
+    function movePiece(toRow, toCol) {
+      try {
+        const fromPiece = boardState[selectedPiece.row][selectedPiece.col];
+        const toPiece = boardState[toRow][toCol];
+
+        if (toPiece) {
+          const capturedColor = toPiece[0] === 'w' ? 'white' : 'black';
+          const capturingColor = fromPiece[0] === 'w' ? 'white' : 'black';
+          scores[capturingColor]++;
+          scores[capturedColor]--;
+          pieces[capturedColor]--;
+        }
+
+        boardState[toRow][toCol] = fromPiece;
+        boardState[selectedPiece.row][selectedPiece.col] = '';
+        clearSelection();
+        initializeBoard();
+
+        currentTurn = currentTurn === 'white' ? 'black' : 'white';
+        updateScoreBoard();
+
+        checkGameOver();
+      } catch (error) {
+        console.error('Error moving piece:', error);
+      }
+    }
+
+    function updateScoreBoard() {
+      try {
+        document.getElementById('white-score').textContent = scores.white;
+        document.getElementById('black-score').textContent = scores.black;
+        document.getElementById('turn').textContent = currentTurn.charAt(0).toUpperCase() + currentTurn.slice(1);
+      } catch (error) {
+        console.error('Error updating scoreboard:', error);
+      }
+    }
+
+    function checkGameOver() {
+      try {
+        if (pieces.white === 0) {
+          showGameOver('ShadyPeter (Black)');
+        } else if (pieces.black === 0) {
+          showGameOver('ShadyPeter (White)');
+        }
+      } catch (error) {
+        console.error('Error checking game over:', error);
+      }
+    }
+
+    function showGameOver(winner) {
+      try {
+        const gameOverDiv = document.createElement('div');
+        gameOverDiv.className = 'game-over';
+        gameOverDiv.innerHTML = `
+          <div class="game-over-content">
+            <h2>Game Over</h2>
+            <p>${winner} Wins!</p>
+            <button class="nes-btn is-primary" onclick="resetGame()"><i class="fas fa-redo"></i> Play Again</button>
+          </div>
+        `;
+        document.body.appendChild(gameOverDiv);
+      } catch (error) {
+        console.error('Error showing game over:', error);
+      }
+    }
+
+    function resetGame() {
+      try {
+        boardState = JSON.parse(JSON.stringify(initialBoard));
+        selectedPiece = null;
+        currentTurn = 'white';
+        scores = { white: 0, black: 0 };
+        pieces = { white: 16, black: 16 };
+        initializeBoard();
+        const gameOverDiv = document.querySelector('.game-over');
+        if (gameOverDiv) gameOverDiv.remove();
+      } catch (error) {
+        console.error('Error resetting game:', error);
+      }
+    }
+
+    // Initialize board on DOM content loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeBoard();
+    });
+  </script>
+</body>
+</html>
