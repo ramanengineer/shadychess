@@ -288,9 +288,9 @@
         <div class="chessboard" id="chessboard"></div>
         <div class="score-board">
           <h3>Score</h3>
-          <p>ShadyPeterLive: <span id="ShadyPeterLive-score">0</span></p>
-          <p>ai: <span id="ai-score">0</span></p>
-          <p>Turn: <span id="turn">ShadyPeterLive</span></p>
+          <p>White: <span id="white-score">0</span></p>
+          <p>Black: <span id="black-score">0</span></p>
+          <p>Turn: <span id="turn">White</span></p>
         </div>
       </div>
 
@@ -310,9 +310,9 @@
   <script>
     const board = document.getElementById('chessboard');
     let selectedPiece = null;
-    let currentTurn = 'ShadyPeterLive';
-    let scores = { ShadyPeterLive: 0, ai: 0 };
-    let pieces = { ShadyPeterLive: 16, ai: 16 };
+    let currentTurn = 'white';
+    let scores = { white: 0, black: 0 };
+    let pieces = { white: 16, black: 16 };
 
     const initialBoard = [
       ['br', 'bn', 'bb', 'bq', 'bk', 'bb', 'bn', 'br'],
@@ -436,8 +436,8 @@
         const toPiece = boardState[toRow][toCol];
 
         if (toPiece) {
-          const capturedColor = toPiece[0] === 'w' ? 'ShadyPeterLive' : 'ai';
-          const capturingColor = fromPiece[0] === 'w' ? 'ShadyPeterLive' : 'ai';
+          const capturedColor = toPiece[0] === 'w' ? 'white' : 'black';
+          const capturingColor = fromPiece[0] === 'w' ? 'white' : 'black';
           scores[capturingColor]++;
           scores[capturedColor]--;
           pieces[capturedColor]--;
@@ -448,7 +448,7 @@
         clearSelection();
         initializeBoard();
 
-        currentTurn = currentTurn === 'ShadyPeterLive' ? 'ai' : 'ShadyPeterLive';
+        currentTurn = currentTurn === 'white' ? 'black' : 'white';
         updateScoreBoard();
 
         checkGameOver();
@@ -459,8 +459,8 @@
 
     function updateScoreBoard() {
       try {
-        document.getElementById('ShadyPeterLive-score').textContent = scores.ShadyPeterLive;
-        document.getElementById('ai-score').textContent = scores.ai;
+        document.getElementById('white-score').textContent = scores.white;
+        document.getElementById('black-score').textContent = scores.black;
         document.getElementById('turn').textContent = currentTurn.charAt(0).toUpperCase() + currentTurn.slice(1);
       } catch (error) {
         console.error('Error updating scoreboard:', error);
@@ -469,10 +469,10 @@
 
     function checkGameOver() {
       try {
-        if (pieces.ShadyPeterLive === 0) {
-          showGameOver('ShadyPeter (ai)');
-        } else if (pieces.ai === 0) {
-          showGameOver('ShadyPeter (ShadyPeterLive)');
+        if (pieces.white === 0) {
+          showGameOver('ShadyPeter (Black)');
+        } else if (pieces.black === 0) {
+          showGameOver('ShadyPeter (White)');
         }
       } catch (error) {
         console.error('Error checking game over:', error);
@@ -500,9 +500,9 @@
       try {
         boardState = JSON.parse(JSON.stringify(initialBoard));
         selectedPiece = null;
-        currentTurn = 'ShadyPeterLive';
-        scores = { ShadyPeterLive: 0, ai: 0 };
-        pieces = { ShadyPeterLive: 16, ai: 16 };
+        currentTurn = 'white';
+        scores = { white: 0, black: 0 };
+        pieces = { white: 16, black: 16 };
         initializeBoard();
         const gameOverDiv = document.querySelector('.game-over');
         if (gameOverDiv) gameOverDiv.remove();
