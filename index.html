@@ -8,12 +8,12 @@
   <meta name="author" content="OGVK Company">
   <meta property="og:title" content="Shady Chess - Unique Chess Variant">
   <meta property="og:description" content="Play Shady Chess, a creative chess variant where any piece can move anywhere, captures affect scores, and the game ends when one side loses all pieces.">
-  <meta property="og:image" content="https://i.postimg.cc/Jn4BVvRf/OGVK-GGQP-1.png">
+  <meta property="og:image" content="https://i.postimg.cc/7Yc8Z6Jd/shady-peter-live-profile-3k.png">
   <meta property="og:url" content="https://shadychess.ogvk.company">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <title>Shady Chess</title>
-  <link rel="icon" href="https://i.postimg.cc/Jn4BVvRf/OGVK-GGQP-1.png" type="image/png">
+  <link rel="icon" href="https://i.postimg.cc/7Yc8Z6Jd/shady-peter-live-profile-3k.png" type="image/png">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <style>
@@ -276,7 +276,7 @@
 <body>
   <div class="container">
     <div class="content">
-      <img src="https://i.postimg.cc/Jn4BVvRf/OGVK-GGQP-1.png" alt="OGVK Logo" class="main-logo">
+      <img src="https://i.postimg.cc/7Yc8Z6Jd/shady-peter-live-profile-3k.png" alt="OGVK Logo" class="main-logo">
       <h1 class="title">Shady Chess</h1>
     </div>
 
@@ -288,9 +288,9 @@
         <div class="chessboard" id="chessboard"></div>
         <div class="score-board">
           <h3>Score</h3>
-          <p>White: <span id="white-score">0</span></p>
+          <p>ShadyPeterLive: <span id="ShadyPeterLive-score">0</span></p>
           <p>Black: <span id="black-score">0</span></p>
-          <p>Turn: <span id="turn">White</span></p>
+          <p>Turn: <span id="turn">ShadyPeterLive</span></p>
         </div>
       </div>
 
@@ -310,9 +310,9 @@
   <script>
     const board = document.getElementById('chessboard');
     let selectedPiece = null;
-    let currentTurn = 'white';
-    let scores = { white: 0, black: 0 };
-    let pieces = { white: 16, black: 16 };
+    let currentTurn = 'ShadyPeterLive';
+    let scores = { ShadyPeterLive: 0, black: 0 };
+    let pieces = { ShadyPeterLive: 16, black: 16 };
 
     const initialBoard = [
       ['br', 'bn', 'bb', 'bq', 'bk', 'bb', 'bn', 'br'],
@@ -436,8 +436,8 @@
         const toPiece = boardState[toRow][toCol];
 
         if (toPiece) {
-          const capturedColor = toPiece[0] === 'w' ? 'white' : 'black';
-          const capturingColor = fromPiece[0] === 'w' ? 'white' : 'black';
+          const capturedColor = toPiece[0] === 'w' ? 'ShadyPeterLive' : 'black';
+          const capturingColor = fromPiece[0] === 'w' ? 'ShadyPeterLive' : 'black';
           scores[capturingColor]++;
           scores[capturedColor]--;
           pieces[capturedColor]--;
@@ -448,7 +448,7 @@
         clearSelection();
         initializeBoard();
 
-        currentTurn = currentTurn === 'white' ? 'black' : 'white';
+        currentTurn = currentTurn === 'ShadyPeterLive' ? 'black' : 'ShadyPeterLive';
         updateScoreBoard();
 
         checkGameOver();
@@ -459,7 +459,7 @@
 
     function updateScoreBoard() {
       try {
-        document.getElementById('white-score').textContent = scores.white;
+        document.getElementById('ShadyPeterLive-score').textContent = scores.ShadyPeterLive;
         document.getElementById('black-score').textContent = scores.black;
         document.getElementById('turn').textContent = currentTurn.charAt(0).toUpperCase() + currentTurn.slice(1);
       } catch (error) {
@@ -469,10 +469,10 @@
 
     function checkGameOver() {
       try {
-        if (pieces.white === 0) {
+        if (pieces.ShadyPeterLive === 0) {
           showGameOver('ShadyPeter (Black)');
         } else if (pieces.black === 0) {
-          showGameOver('ShadyPeter (White)');
+          showGameOver('ShadyPeter (ShadyPeterLive)');
         }
       } catch (error) {
         console.error('Error checking game over:', error);
@@ -500,9 +500,9 @@
       try {
         boardState = JSON.parse(JSON.stringify(initialBoard));
         selectedPiece = null;
-        currentTurn = 'white';
-        scores = { white: 0, black: 0 };
-        pieces = { white: 16, black: 16 };
+        currentTurn = 'ShadyPeterLive';
+        scores = { ShadyPeterLive: 0, black: 0 };
+        pieces = { ShadyPeterLive: 16, black: 16 };
         initializeBoard();
         const gameOverDiv = document.querySelector('.game-over');
         if (gameOverDiv) gameOverDiv.remove();
